@@ -21,17 +21,18 @@ function createNote() {
     );
 
     // saves data
-}
+};
 
 
 // GET route
-// app.get
+app.get("/api/notes", (req, res) => {
+    res.json(notes);
+});
 
 // POST
-// app.post
+//app.post
 
 
 app.listen(PORT, () => {
     console.log(`Now listening to post ${PORT} `)
-})
-
+});
