@@ -1,10 +1,8 @@
 // requires
-const { resolveSoa } = require("dns");
 const express = require("express");
 const fs = require("fs");
 const app = express();
 const path = require("path");
-const { ppid } = require("process");
 const PORT = process.env.PORT || 3001;
 const notes = require("./db/db.json");
 
@@ -14,7 +12,7 @@ function createNote() {
 
     );
 
-    // save data
+    // saves data
 }
 
 // HTML routes
