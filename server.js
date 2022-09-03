@@ -6,23 +6,20 @@ const path = require("path");
 const PORT = process.env.PORT || 3001;
 const notes = require("./db/db.json");
 
-// HTML routes
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "./public/index.html"))
-});
-app.get("/notes", (req, res) => {
-    res.sendFile(path.join(__dirname, "./public/notes.html"))
-});
-
-function createNote() {
-    // writes data
-    fs.writeFileSync(
-
-    );
-
+// create note function
+function createNote(body, notesArray) {
+    const note = body;
     // saves data
-};
+    notesArray.push(note);
 
+    // creates data
+    fs.writeFileSync(
+        path.join(__dirname, './db/db.json'),
+        // converts to JSON
+        JSON.stringify(notesArray)
+    );
+    return note;
+};
 
 // GET route
 app.get("/api/notes", (req, res) => {
@@ -30,8 +27,22 @@ app.get("/api/notes", (req, res) => {
 });
 
 // POST
-//app.post
+app.post("/api/notes", (req, res) => {
+    // sets ID
+    req.body.id = notes.length.toString();
 
+    // adds note to json file
+    const note = createNote(req.body, notes);
+    res.json(req.body);
+});
+
+// HTML routes
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "./public/index.html"))
+});
+app.get("/notes", (req, res) => {
+    res.sendFile(path.join(__dirname, "./public/notes.html"))
+});
 
 app.listen(PORT, () => {
     console.log(`Now listening to post ${PORT} `)
