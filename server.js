@@ -21,6 +21,10 @@ function createNote(body, notesArray) {
     return note;
 };
 
+app.use(express.static('./public'));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 // GET route
 app.get("/api/notes", (req, res) => {
     res.json(notes);
@@ -36,6 +40,8 @@ app.post("/api/notes", (req, res) => {
     res.json(req.body);
 });
 
+// Future project: DELETE
+
 // HTML routes
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "./public/index.html"))
@@ -45,5 +51,5 @@ app.get("/notes", (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Now listening to post ${PORT} `)
+    console.log(`Now listening to port ${PORT} `)
 });
